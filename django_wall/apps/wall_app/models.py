@@ -14,6 +14,12 @@ class UserManager(models.Manager):
             errors["passwords"] = "Passwords must match"
         if postData["password"] < 9:
             errors["password"] = "Password must be at least 8 characters"
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData["email"]):
+            errors["snail"] = "Invalid Email"
+        check = User.objects.filter(email=postData["email"])
+        if len(check)>0:
+            errors["duplicate"] = "Email in use, please choose another"
         return errors
     
     def pw_validator(self, postData):

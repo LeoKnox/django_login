@@ -29,7 +29,13 @@ def login(request):
         return redirect("/welcome")
 
 def welcome(request):
+    if 'use' not in request.session:
+        return redirect("/")
     return render(request, "wall_app/welcome.html")
+
+def logout(request):
+    request.session.clear()
+    return redirect("/")
     
 def show(request):
     print(User.objects.all().values())
