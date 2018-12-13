@@ -28,7 +28,6 @@ class UserManager(models.Manager):
         if len(check)>0:
             EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
             hpd = check[0].password
-            print(hpd)
             if not EMAIL_REGEX.match(postData["email"]):
                 errors["snail"] = "Invalid Email"
             if not bcrypt.checkpw(postData["password"].encode(), hpd.encode()):
